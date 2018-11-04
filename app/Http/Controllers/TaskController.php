@@ -4,71 +4,72 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
 use App\Task;
-use Request;
+use Illuminate\Http\Request;
 
 
 class TaskController extends Controller
 {
-    public function index(){
-        $tasks = Task::where('active', 1)->get();
-        return view('tasks',compact('tasks'));
+    public function index()
+    {
+        $activeTask = Task::where('active', 1)->get();
+        $inactiveTask = Task::where('active', 0)->get();
+        return view('tasks/index')->with('activeTask', $activeTask)->with('inactiveTask', $inactiveTask);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $task = Task::find($id);
         if ($task) {
-        return view('show',compact('task'));
-        }
-        else {
+            return view('tasks/show', compact('task'));
+        } else {
             abort(404);
         }
     }
+
     public function store(CreateTaskRequest $request)
     {
-        $newPost = Request::all();
+        $newPost = $request->all();
         Task::create($newPost);
         return redirect('tasks');
     }
 
     public function create()
     {
-        return view('create');
+        return view('tasks/create');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $task = Task::findOrFail($id);
-        return view('edit',compact('task'));
+        return view('tasks/edit', compact('task'));
     }
-    public function update($id,CreateTaskRequest $request) {
+
+    public function update($id, CreateTaskRequest $request)
+    {
         $task = Task::findOrFail($id);
-        $task->update(Request::all());
+        $task->update($request->all());
         return redirect('tasks');
     }
-    public function destroy($id) {
+
+    public function destroy($id)
+    {
         $task = Task::findOrFail($id);
         $task->delete();
         return redirect('tasks');
     }
 
-    public function mark($id)
+    public function archive(Request $request)
     {
-        $task = Task::findOrFail($id);
-        $task['active'] = 0;
-        $task->save();
+        $task = Task::findOrFail($request->input('id'));
+        $task->update(['active' => 0]);
+        return redirect('tasks');
+    }
+
+    public function unarchive(Request $request)
+    {
+        $task = Task::findOrFail($request->input('id'));
+        $task->update(['active' => 1]);
         return redirect('tasks');
 
-        /// Може тут краще зробити одну функцію switch status?? //
-    }
-    public function remark($id) {
-        $task = Task::findOrFail($id);
-        $task['active'] = 1;
-        $task->save();
-        return redirect('/tasks/archive');
-
-    }
-
-    public function archive() {
-        $tasks = Task::where('active', 0)->get();
-        return view('archive',compact('tasks'));
     }
 }

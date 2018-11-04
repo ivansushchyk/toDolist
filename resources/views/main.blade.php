@@ -15,6 +15,7 @@
             border-bottom: 1px solid #333333;
             border-left: 1px solid #CCCCCC;
         }
+
         h1 {
             text-align: center;
         }
@@ -23,11 +24,10 @@
 </head>
 <a href="/tasks/create" class="button"> Create a new Task </a>
 <a href="/tasks" class="button"> Main Page </a>
-<a href="/tasks/archive" class="button"> Task archive </a>
 <body>
-  <h1>
+<h1>
     My Todolist
-  </h1>
+</h1>
 <hr>
 <div class="container">
     @yield('content')

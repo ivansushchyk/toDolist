@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/','TaskController@index');
-Route::get('/tasks/archive','TaskController@archive');
 Route::resource('tasks','TaskController');
-Route::get('/tasks/{id}/mark','TaskController@mark');
-Route::get('/tasks/{id}/remark','TaskController@remark');
+Route::post('/tasks/archive','TaskController@archive');
+Route::post('/tasks/unarchive','TaskController@unarchive');
 
