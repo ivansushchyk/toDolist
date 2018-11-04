@@ -1,46 +1,53 @@
-@extends('main')
+@extends('/layouts/app')
 
 
 @section('content')
     <h1>
         Active tasks
     </h1>
-    <hr>
-    <table>
+    <div class="active">
+        <hr>
+
         @foreach($activeTask as $task)
-            <th><h3> {{ $task->name }}  </h3></th>
-            <td><a href="/tasks/{{ $task->id }}" class="button"> Show task </a></td>
+            <h4> {{ $task->name }}  </h4>
+
+            {!! Form::open(['method' => 'GET', 'action' => ['TaskController@show',$task->id]])!!}
+            <input type="submit" value="Show task" class="button">
+            {!! Form::close() !!}
 
             {!! Form::open(['method' => 'POST', 'action' => ['TaskController@archive',$task->id]])!!}
-            <td><input type="submit" value="Mark inactive" class="button"></td>
+            <input type="submit" value="Mark inactive" class="button">
             {!! Form::close() !!}
 
             {!! Form::open(['method' => 'DELETE', 'action' => ['TaskController@destroy', $task->id]])!!}
-            <td><input type="submit" value="Delete" class="button"></td>
+            <input type="submit" value="Delete" class="button">
             {!! Form::close() !!}
-            <tr>
+            <hr>
 
         @endforeach
-    </table>
+    </div>
 
     <h1>
         Inactive tasks
     </h1>
     <hr>
-    <table>
+
         @foreach($inactiveTask as $task)
-            <th><h3> {{ $task->name }}  </h3></th>
-            <td><a href="/tasks/{{ $task->id }}" class="button"> Show task </a></td>
+            <h4> {{ $task->name }}  </h4>
+            {!! Form::open(['method' => 'GET', 'action' => ['TaskController@show',$task->id]])!!}
+            <input type="submit" value="Show task" class="button">
+            {!! Form::close() !!}
+
+
             {!! Form::open(['method' => 'POST', 'action' => ['TaskController@unarchive',$task->id]])!!}
-            <td><input type="submit" value="Mark active" class="button"></td>
+            <input type="submit" value="Mark active" class="button">
             {!! Form::close() !!}
+
             {!! Form::open(['method' => 'DELETE', 'action' => ['TaskController@destroy', $task->id]])!!}
-            <td><input type="submit" value="Delete" class="button"></td>
+            <input type="submit" value="Delete" class="button">
             {!! Form::close() !!}
-            <tr>
 
         @endforeach
-    </table>
 
 @stop
 

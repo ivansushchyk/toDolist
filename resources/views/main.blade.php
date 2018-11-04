@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Todolist</title>
+    <title>My Todolist  </title>
     <style> .button {
             font: bold 14px Arial;
             text-decoration: none;
@@ -24,10 +24,9 @@
 </head>
 <a href="/tasks/create" class="button"> Create a new Task </a>
 <a href="/tasks" class="button"> Main Page </a>
+<a href="/exit" class="button" > Exit from account </a>
 <body>
-<h1>
-    My Todolist
-</h1>
+<
 <hr>
 <div class="container">
     @yield('content')
