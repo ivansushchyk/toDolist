@@ -17,9 +17,16 @@
 {!! Form::close() !!}
 
 @if ($task->active == 0)
-    <a href="/tasks/{{ $task->id }}/remark" class="button"> Check active </a>
+    {!! Form::open(['method' => 'POST', 'url' => 'tasks/unarchive'])!!}
+    <td><input type="submit" value="Mark active" class="button"></td>
+    {!! Form::hidden('id',$task->id) !!}
+    {!! Form::close() !!}
 @else
-    <a href="/tasks/{{ $task->id }}/mark" class="button"> Add to archive </a>
+
+    {!! Form::open(['method' => 'POST', 'url' => 'tasks/archive'])!!}
+    <td><input type="submit" value="Mark inactive" class="button"></td>
+    {!! Form::hidden('id',$task->id) !!}
+    {!! Form::close() !!}
 @endif
 
 @stop
