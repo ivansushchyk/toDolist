@@ -58,16 +58,16 @@ class TaskController extends Controller
         return redirect('tasks');
     }
 
-    public function archive(Request $request)
+    public function archive($id)
     {
-        $task = Task::findOrFail($request->input('id'));
+        $task = Task::findOrFail($id);
         $task->update(['active' => 0]);
         return redirect('tasks');
     }
 
-    public function unarchive(Request $request)
+    public function unarchive($id)
     {
-        $task = Task::findOrFail($request->input('id'));
+        $task = Task::findOrFail($id);
         $task->update(['active' => 1]);
         return redirect('tasks');
 

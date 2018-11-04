@@ -11,10 +11,10 @@
             <th><h3> {{ $task->name }}  </h3></th>
             <td><a href="/tasks/{{ $task->id }}" class="button"> Show task </a></td>
 
-            {!! Form::open(['method' => 'POST', 'url' => 'tasks/archive'])!!}
+            {!! Form::open(['method' => 'POST', 'action' => ['TaskController@archive',$task->id]])!!}
             <td><input type="submit" value="Mark inactive" class="button"></td>
-            {!! Form::hidden('id',$task->id) !!}
             {!! Form::close() !!}
+
             {!! Form::open(['method' => 'DELETE', 'action' => ['TaskController@destroy', $task->id]])!!}
             <td><input type="submit" value="Delete" class="button"></td>
             {!! Form::close() !!}
@@ -31,9 +31,8 @@
         @foreach($inactiveTask as $task)
             <th><h3> {{ $task->name }}  </h3></th>
             <td><a href="/tasks/{{ $task->id }}" class="button"> Show task </a></td>
-            {!! Form::open(['method' => 'POST', 'url' => 'tasks/unarchive'])!!}
+            {!! Form::open(['method' => 'POST', 'action' => ['TaskController@unarchive',$task->id]])!!}
             <td><input type="submit" value="Mark active" class="button"></td>
-            {!! Form::hidden('id',$task->id) !!}
             {!! Form::close() !!}
             {!! Form::open(['method' => 'DELETE', 'action' => ['TaskController@destroy', $task->id]])!!}
             <td><input type="submit" value="Delete" class="button"></td>

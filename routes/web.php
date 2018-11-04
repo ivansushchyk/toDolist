@@ -13,6 +13,6 @@
 
 Route::get('/','TaskController@index');
 Route::resource('tasks','TaskController');
-Route::post('/tasks/archive','TaskController@archive');
-Route::post('/tasks/unarchive','TaskController@unarchive');
+Route::post('/tasks/archive/{id}','TaskController@archive');
+Route::post('/tasks/unarchive/{id}','TaskController@unarchive');
 
