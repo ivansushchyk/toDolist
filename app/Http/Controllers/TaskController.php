@@ -8,13 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-
 class TaskController extends Controller
 {
     public function index()
     {
-        $activeTask = Task::where('active', 1)->where('user_id',Auth::id())->get();
-        $inactiveTask = Task::where('active', 0)->where('user_id',Auth::id())->get();
+        $activeTask = Task::where('active', 1)->where('user_id', Auth::id())->get();
+        $inactiveTask = Task::where('active', 0)->where('user_id', Auth::id())->get();
         return view('tasks/index')->with('activeTask', $activeTask)->with('inactiveTask', $inactiveTask);
     }
 
@@ -41,7 +40,8 @@ class TaskController extends Controller
         return view('tasks/create');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('login');
     }
@@ -49,13 +49,12 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::findorFail($id);
-        if($task['user_id'] == Auth::id()){
+        if ($task['user_id'] == Auth::id()) {
             return view('tasks/edit', compact('task'));
-        }
-    else {
+        } else {
 
-        abort(403);
-    }
+            abort(403);
+        }
     }
 
     public function update($id, CreateTaskRequest $request)
