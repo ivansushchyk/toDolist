@@ -3,6 +3,7 @@
 
 
 @section('content')
+    <div class="container2">
 
     {!! Form::open(['url' => 'tasks']) !!}
     <div>
@@ -31,4 +32,5 @@
             </ul>
         @endforeach
     @endif
+    </div>
 @stop

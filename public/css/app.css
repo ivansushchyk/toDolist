@@ -1,5 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+.inline-form {
+    display: inline;
+}
+
+.container2 {
+    margin-left:  20px;
+}
+
+.container3 {
+    margin-left:  550px;
+    margin-top: 50px;
+}
 /*!
  * Bootstrap v4.1.2 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -42,7 +54,7 @@
     box-sizing: border-box;
 }
 .active {
-    min-height: 250px;
+    min-height: 500px;
 }
 html {
     font-family: sans-serif;

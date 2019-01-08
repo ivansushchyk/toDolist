@@ -12,11 +12,15 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $activeTask = Task::where('active', 1)->where('user_id', Auth::id())->get();
-        $inactiveTask = Task::where('active', 0)->where('user_id', Auth::id())->get();
-        return view('tasks/index')->with('activeTask', $activeTask)->with('inactiveTask', $inactiveTask);
+        $activeTasks = Task::where('active', 1)->where('user_id', Auth::id())->get();
+        return view('tasks/index')->with('activeTasks', $activeTasks);
     }
 
+
+    public function showInactive() {
+        $inactiveTasks = Task::where('active', 0)->where('user_id', Auth::id())->get();
+        return view('tasks/inactiveTasks')->with('inactiveTasks',$inactiveTasks);
+    }
     public function show($id)
     {
         $task = Task::find($id);
@@ -25,13 +29,14 @@ class TaskController extends Controller
         } else {
             abort(403);
         }
+
     }
 
     public function store(CreateTaskRequest $request)
     {
-        $newPost = $request->all();
-        $newPost['user_id'] = Auth::id();
-        Task::create($newPost);
+        $newTask = $request->all();
+        $newTask['user_id'] = Auth::id();
+        Task::create($newTask);
         return redirect('tasks');
     }
 
@@ -61,7 +66,7 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->update($request->all());
-        return redirect('tasks');
+        return view('tasks/show', compact('task'));
     }
 
     public function destroy($id)
@@ -75,14 +80,14 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->update(['active' => 0]);
-        return redirect('tasks');
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function unarchive($id)
     {
         $task = Task::findOrFail($id);
         $task->update(['active' => 1]);
-        return redirect('tasks');
+        return redirect($_SERVER['HTTP_REFERER']);
 
     }
 }

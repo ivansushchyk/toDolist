@@ -10,15 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', function () {
-    return view('layouts/app');
-});
+
 Route::get('/','TaskController@index')->middleware('auth');
+Route::get('/inactive','TaskController@showInactive')->middleware('auth');
+
 Route::get('/exit','TaskController@logout');
 Route::resource('tasks','TaskController')->middleware('auth');
 Route::post('/tasks/archive/{id}','TaskController@archive');
 Route::post('/tasks/unarchive/{id}','TaskController@unarchive');
-
 
 Auth::routes();
 

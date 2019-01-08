@@ -2,6 +2,7 @@
 
 
 @section('content')
+    <div class="container2" >
 
     <h1> Edit : {!! $task->name !!}  </h1>
 
@@ -31,4 +32,5 @@
             </ul>
         @endforeach
     @endif
+    </div>
 @stop
